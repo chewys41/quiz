@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/layout/Header";
 import UserQuizes from "./components/layout/UserQuizes";
 import JavaScript from "./components/quizes/JavaScript";
@@ -12,11 +12,13 @@ class App extends Component {
     return (
       <Router>
         <Header />
-        <Route path="/userquizes" component={UserQuizes} />
-        <Route path="/javaScript/quiz" component={JavaScript} />
-        <Route path="/react/quiz" component={Reactjs} />
-        <Route path="/html/quiz" component={HTML} />
-        <Route path="/css/quiz" component={CSS} />
+        <Switch>
+          <Route exact path="/" component={UserQuizes} />
+          <Route exact path="/javaScript/quiz" component={JavaScript} />
+          <Route exact path="/react/quiz" component={Reactjs} />
+          <Route exact path="/html/quiz" component={HTML} />
+          <Route exact path="/css/quiz" component={CSS} />
+        </Switch>
       </Router>
     );
   }

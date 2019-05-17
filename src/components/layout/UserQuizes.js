@@ -6,11 +6,6 @@ import { Link } from "react-router-dom";
 class UserQuizes extends Component {
   constructor(props) {
     super(props);
-    this.toJavaScriptQuiz = this.toJavaScriptQuiz.bind(this);
-  }
-
-  toJavaScriptQuiz() {
-    this.props.history.push("/javaScript/quiz");
   }
 
   render() {
@@ -20,20 +15,21 @@ class UserQuizes extends Component {
           Select a quiz to continue
         </Card.Header>
         <Card.Body className="text-center">
-          <Button
-            className="mr-5"
-            variant="primary"
-            onClick={this.toJavaScriptQuiz}
-          >
-            javaScript
-          </Button>
-
-          <Button className="mr-5" variant="primary">
-            HTML
-          </Button>
-          <Button className="mr-5" variant="primary">
-            CSS
-          </Button>
+          <Link to="/javaScript/quiz">
+            <Button className="mr-5" variant="primary">
+              javaScript
+            </Button>
+          </Link>
+          <Link to="/HTML/quiz">
+            <Button className="mr-5" variant="primary">
+              HTML
+            </Button>
+          </Link>
+          <Link to="/CSS/quiz">
+            <Button className="mr-5" variant="primary">
+              CSS
+            </Button>
+          </Link>
           <Link to="/react/quiz">
             <Button className="mr-5" variant="primary">
               React

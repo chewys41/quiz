@@ -13,7 +13,6 @@ export default function Header() {
           </Navbar.Brand>
         </Container>
       </Navbar>
-      <UserQuizes />
     </div>
   );
 }
