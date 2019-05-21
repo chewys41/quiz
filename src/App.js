@@ -14,10 +14,10 @@ class App extends Component {
         <Header />
         <Switch>
           <Route exact path="/" component={UserQuizes} />
-          <Route exact path="/javaScript/quiz" component={JavaScript} />
-          <Route exact path="/react/quiz" component={Reactjs} />
-          <Route exact path="/html/quiz" component={HTML} />
-          <Route exact path="/css/quiz" component={CSS} />
+          <Route path="/javaScript/quiz" component={JavaScript} />
+          <Route path="/react/quiz" component={Reactjs} />
+          <Route path="/html/quiz" component={HTML} />
+          <Route path="/css/quiz" component={CSS} />
         </Switch>
       </Router>
     );

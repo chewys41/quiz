@@ -85,6 +85,13 @@ class JavaScript extends Component {
                 </label>
               </div>
             </form>
+            <Button
+              className="mr-3"
+              onClick={this.handleFormSubmit}
+              variant="primary"
+            >
+              BACK
+            </Button>
 
             <Button onClick={this.handleFormSubmit} variant="primary">
               NEXT
