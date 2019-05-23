@@ -24,7 +24,7 @@ class CSS extends Component {
   render() {
     return (
       <div>
-        <Card className="text-center container mx-auto mt-5">
+        <Card className="text-center container mx-auto mt-5 col-6">
           <Card.Header>CSS Quiz</Card.Header>
           <Card.Body>
             <Card.Text>What does CSS stand for?</Card.Text>

@@ -22,7 +22,7 @@ class Reactjs extends Component {
   render() {
     return (
       <div>
-        <Card className="text-center container mx-auto mt-5">
+        <Card className="text-center container mx-auto mt-5 col-6">
           <Card.Header>ReactJS Quiz</Card.Header>
           <Card.Body>
             <Card.Text>What is ReactJS?</Card.Text>
