@@ -1,13 +1,25 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { htmlQuizQuestions } from "../../questions/AllQuestions";
 class HTML extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: "option1"
+      selectedOption: "option1",
+      htmlQuizQuestions: htmlQuizQuestions
     };
   }
+  randomQuestionGenerator = arr => {
+    let newPos, temp;
+    for (let i = arr.length - 1; i > 0; i--) {
+      newPos = Math.floor(Math.random() * (i + 1));
+      temp = arr[i];
+      arr[i] = arr[newPos];
+      arr[newPos] = temp;
+    }
+    return arr[0].title;
+  };
 
   handleOptionChange = changeEvent => {
     this.setState({
@@ -21,12 +33,14 @@ class HTML extends Component {
     console.log("You have submitted:", this.state.selectedOption);
   };
   render() {
+    console.log(this.randomQuestionGenerator(htmlQuizQuestions));
+    const randomQuestion = this.randomQuestionGenerator(htmlQuizQuestions);
     return (
       <div>
         <Card className="text-center container mx-auto mt-5 col-6">
           <Card.Header>HTML Quiz</Card.Header>
           <Card.Body>
-            <Card.Text>What does HTML stand for?</Card.Text>
+            <Card.Text>{randomQuestion}</Card.Text>
             <form onSubmit={this.handleFormSubmit}>
               <div className="quiz-formj">
                 <label>

@@ -1,14 +1,27 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { cssQuizQuestions } from "../../questions/AllQuestions";
 
 class CSS extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: "option1"
+      selectedOption: "option1",
+      cssQuizQuestions: cssQuizQuestions
     };
   }
+
+  randomQuestionGenerator = arr => {
+    let newPos, temp;
+    for (let i = arr.length - 1; i > 0; i--) {
+      newPos = Math.floor(Math.random() * (i + 1));
+      temp = arr[i];
+      arr[i] = arr[newPos];
+      arr[newPos] = temp;
+    }
+    return arr[0].title;
+  };
   handleOptionChange = changeEvent => {
     this.setState({
       selectedOption: changeEvent.target.value
@@ -22,12 +35,13 @@ class CSS extends Component {
   };
 
   render() {
+    const randomQuestion = this.randomQuestionGenerator(cssQuizQuestions);
     return (
       <div>
         <Card className="text-center container mx-auto mt-5 col-6">
           <Card.Header>CSS Quiz</Card.Header>
           <Card.Body>
-            <Card.Text>What does CSS stand for?</Card.Text>
+            <Card.Text>{randomQuestion}</Card.Text>
             <form onSubmit={this.handleFormSubmit}>
               <div className="quiz-formj">
                 <label>
