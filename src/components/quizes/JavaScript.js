@@ -8,8 +8,7 @@ class JavaScript extends React.Component {
     super(props);
 
     this.state = {
-      selectedOption: "option1",
-      javascriptQuizQuestions: javascriptQuizQuestions
+      selectedOption: "option1"
     };
   }
 
@@ -23,6 +22,19 @@ class JavaScript extends React.Component {
     }
     return arr[0].title;
   };
+
+  // newRandomQuestionGenerator = array => {
+  //   var m = array.length,
+  //     t,
+  //     i;
+  //   while (m) {
+  //     i = Math.floor(Math.random() * m--);
+  //     t = array[m];
+  //     array[m] = array[i];
+  //     array[i] = t;
+  //   }
+  //   return array[0].title;
+  // };
 
   handleOptionChange = changeEvent => {
     this.setState({
@@ -39,7 +51,7 @@ class JavaScript extends React.Component {
     const randomQuestion = this.randomQuestionGenerator(
       javascriptQuizQuestions
     );
-
+    console.log(this.randomQuestionGenerator(javascriptQuizQuestions));
     return (
       <div>
         <Card className="text-center container mx-auto mt-5 col-6">
@@ -111,7 +123,7 @@ class JavaScript extends React.Component {
               BACK
             </Button>
 
-            <Button onClick={this.handleFormSubmit} variant="primary">
+            <Button onClick={this.handleOptionChange} variant="primary">
               NEXT
             </Button>
           </Card.Body>
