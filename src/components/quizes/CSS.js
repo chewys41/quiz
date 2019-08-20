@@ -1,115 +1,72 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { cssQuizQuestions } from "../../questions/AllQuestions";
+import { cssQuizQuestions } from "../../questions/Questions";
 
 class CSS extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedOption: "option1",
-      cssQuizQuestions: cssQuizQuestions
-    };
-  }
-
-  randomQuestionGenerator = arr => {
-    let newPos, temp;
-    for (let i = arr.length - 1; i > 0; i--) {
-      newPos = Math.floor(Math.random() * (i + 1));
-      temp = arr[i];
-      arr[i] = arr[newPos];
-      arr[newPos] = temp;
-    }
-    return arr[0].title;
+  state = {
+    userAnswer: null,
+    currentQuestion: 0,
+    options: []
   };
-  handleOptionChange = changeEvent => {
-    this.setState({
-      selectedOption: changeEvent.target.value
+  loadQuiz = () => {
+    const { currentQuestion } = this.state;
+    this.setState(() => {
+      return {
+        questions: cssQuizQuestions[currentQuestion].title,
+        options: cssQuizQuestions[currentQuestion].answers,
+        answers: cssQuizQuestions[currentQuestion].correcctAns
+      };
     });
   };
+  componentDidMount() {
+    this.loadQuiz();
+  }
 
-  handleFormSubmit = formSubmitEvent => {
-    formSubmitEvent.preventDefault();
-
-    console.log("You have submitted:", this.state.selectedOption);
+  nextQuestion = () => {
+    this.setState({
+      currentQuestion: this.state.currentQuestion + 1
+    });
+    console.log(this.state.currentQuestion);
   };
+  componentDidUpdate(prevProps, prevState) {
+    const { currentQuestion } = this.state;
+    if (this.state.currentQuestion !== prevState.currentQuestion) {
+      this.setState(() => {
+        return {
+          questions: cssQuizQuestions[currentQuestion].title,
+          options: cssQuizQuestions[currentQuestion].answers,
+          answers: cssQuizQuestions[currentQuestion].correcctAns
+        };
+      });
+    }
+  }
 
   render() {
-    const randomQuestion = this.randomQuestionGenerator(cssQuizQuestions);
+    const { questions, options } = this.state;
     return (
       <div>
         <Card className="text-center container mx-auto mt-5 col-6">
           <Card.Header>CSS Quiz</Card.Header>
           <Card.Body>
-            <Card.Text>{randomQuestion}</Card.Text>
-            <form onSubmit={this.handleFormSubmit}>
-              <div className="quiz-formj">
-                <label>
-                  <input
-                    type="radio"
-                    name="Computer Style Sheets"
-                    value="option1"
-                    checked={this.state.selectedOption === "option1"}
-                    onChange={this.handleOptionChange}
-                    className="formj-check-input"
-                  />
-                  Computer Style Sheets
-                </label>
-              </div>
-
-              <div className="quiz-formj">
-                <label>
-                  <input
-                    type="radio"
-                    name="Cascading Style Sheets"
-                    value="option2"
-                    checked={this.state.selectedOption === "option2"}
-                    onChange={this.handleOptionChange}
-                    className="formj-check-input"
-                  />
-                  Cascading Style Sheets
-                </label>
-              </div>
-
-              <div className="quiz-formj">
-                <label>
-                  <input
-                    type="radio"
-                    name="Creative Style Sheets"
-                    value="option3"
-                    checked={this.state.selectedOption === "option3"}
-                    onChange={this.handleOptionChange}
-                    className="formj-check-input"
-                  />
-                  Creative Style Sheets
-                </label>
-              </div>
-
-              <div className="quiz-formj">
-                <label>
-                  <input
-                    type="radio"
-                    name="Colorful Style Sheets"
-                    value="option4"
-                    checked={this.state.selectedOption === "option4"}
-                    onChange={this.handleOptionChange}
-                    className="formj-check-input"
-                  />
-                  Colorful Style Sheets
-                </label>
+            <Card.Text>{questions}</Card.Text>
+            <form>
+              <div className="d-flex flex-column">
+                {options.map(option => (
+                  <label>
+                    <input
+                      type="radio"
+                      name="question"
+                      value={option}
+                      className="formj-check-input d-flex justify-content-start"
+                      key={option}
+                    />
+                    {option}
+                  </label>
+                ))}
               </div>
             </form>
-            <Button
-              className="mr-3"
-              onClick={this.handleFormSubmit}
-              variant="primary"
-            >
-              BACK
-            </Button>
-
-            <Button onClick={this.handleFormSubmit} variant="primary">
-              NEXT
-            </Button>
+            <button onClick={this.nextQuestion}>NEXT</button>
           </Card.Body>
         </Card>
         ;

@@ -8,34 +8,37 @@ class JavaScript extends React.Component {
     super(props);
 
     this.state = {
-      selectedOption: "option1"
+      selectedOption: "option1",
+      currentQuestion: 0,
+      options: []
     };
   }
 
-  randomQuestionGenerator = arr => {
-    let newPos, temp;
-    for (let i = arr.length - 1; i > 0; i--) {
-      newPos = Math.floor(Math.random() * (i + 1));
-      temp = arr[i];
-      arr[i] = arr[newPos];
-      arr[newPos] = temp;
-    }
-    return arr[0].title;
-  };
-
-  // newRandomQuestionGenerator = array => {
-  //   var m = array.length,
-  //     t,
-  //     i;
-  //   while (m) {
-  //     i = Math.floor(Math.random() * m--);
-  //     t = array[m];
-  //     array[m] = array[i];
-  //     array[i] = t;
+  // shuffleQuestions = array => {
+  //   let i = array.length - 1;
+  //   let shiftedQuestion = array;
+  //   for (; i > 0; i--) {
+  //     const j = Math.floor(Math.random() * (i + 1));
+  //     const temp = array[i];
+  //     array[i] = array[j];
+  //     array[j] = temp;
+  //     shiftedQuestion.shift(j, 0);
   //   }
-  //   return array[0].title;
+  //   return shiftedQuestion.title;
   // };
 
+  shuffleQuestions = array => {
+    let newPos, temp, randomQuestion;
+    for (let i = array.length - 1; i > 0; i--) {
+      newPos = Math.floor(Math.random() * (i + 1));
+      temp = array[i];
+      array[i] = array[newPos];
+      array[newPos] = temp;
+    }
+    return array.shift().title;
+  };
+
+  loadAnswers = () => {};
   handleOptionChange = changeEvent => {
     this.setState({
       selectedOption: changeEvent.target.value
@@ -48,10 +51,9 @@ class JavaScript extends React.Component {
     console.log("You have submitted:", this.state.selectedOption);
   };
   render() {
-    const randomQuestion = this.randomQuestionGenerator(
-      javascriptQuizQuestions
-    );
-    console.log(this.randomQuestionGenerator(javascriptQuizQuestions));
+    const randomQuestion = this.shuffleQuestions(javascriptQuizQuestions);
+
+    // console.log(this.shuffleQuestions(javascriptQuizQuestions));
     return (
       <div>
         <Card className="text-center container mx-auto mt-5 col-6">
@@ -69,49 +71,7 @@ class JavaScript extends React.Component {
                     onChange={this.handleOptionChange}
                     className="formj-check-input"
                   />
-                  1994
-                </label>
-              </div>
-
-              <div className="quiz-formj">
-                <label>
-                  <input
-                    type="radio"
-                    name="1988"
-                    value="option2"
-                    checked={this.state.selectedOption === "option2"}
-                    onChange={this.handleOptionChange}
-                    className="formj-check-input"
-                  />
-                  1988
-                </label>
-              </div>
-
-              <div className="quiz-formj">
-                <label>
-                  <input
-                    type="radio"
-                    name="1996"
-                    value="option3"
-                    checked={this.state.selectedOption === "option3"}
-                    onChange={this.handleOptionChange}
-                    className="formj-check-input"
-                  />
-                  1996
-                </label>
-              </div>
-
-              <div className="quiz-formj">
-                <label>
-                  <input
-                    type="radio"
-                    name="1995"
-                    value="option4"
-                    checked={this.state.selectedOption === "option4"}
-                    onChange={this.handleOptionChange}
-                    className="formj-check-input"
-                  />
-                  1995
+                  1234
                 </label>
               </div>
             </form>

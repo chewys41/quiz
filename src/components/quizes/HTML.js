@@ -6,19 +6,19 @@ class HTML extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: "option1",
-      htmlQuizQuestions: htmlQuizQuestions
+      selectedOption: "option1"
     };
   }
-  randomQuestionGenerator = arr => {
-    let newPos, temp;
-    for (let i = arr.length - 1; i > 0; i--) {
+
+  shuffleQuestions = array => {
+    let newPos, temp, randomQuestion;
+    for (let i = array.length - 1; i > 0; i--) {
       newPos = Math.floor(Math.random() * (i + 1));
-      temp = arr[i];
-      arr[i] = arr[newPos];
-      arr[newPos] = temp;
+      temp = array[i];
+      array[i] = array[newPos];
+      array[newPos] = temp;
     }
-    return arr[0].title;
+    return array.shift().title;
   };
 
   handleOptionChange = changeEvent => {
@@ -33,8 +33,7 @@ class HTML extends Component {
     console.log("You have submitted:", this.state.selectedOption);
   };
   render() {
-    console.log(this.randomQuestionGenerator(htmlQuizQuestions));
-    const randomQuestion = this.randomQuestionGenerator(htmlQuizQuestions);
+    const randomQuestion = this.shuffleQuestions(htmlQuizQuestions);
     return (
       <div>
         <Card className="text-center container mx-auto mt-5 col-6">
