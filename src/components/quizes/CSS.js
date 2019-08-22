@@ -46,10 +46,14 @@ class CSS extends Component {
     const { questions, options } = this.state;
     return (
       <div>
-        <Card className="text-center container mx-auto mt-5 col-6">
-          <Card.Header>CSS Quiz</Card.Header>
-          <Card.Body>
-            <Card.Text>{questions}</Card.Text>
+        <Card className="text-center form-group mx-auto mt-5 col-6">
+          <Card.Header>
+            <h3>CSS Quiz</h3>
+          </Card.Header>
+          <Card.Body className="form-group">
+            <Card.Text>
+              <h5>{questions}</h5>
+            </Card.Text>
             <form>
               <div className="d-flex flex-column">
                 {options.map(option => (
@@ -58,7 +62,7 @@ class CSS extends Component {
                       type="radio"
                       name="question"
                       value={option}
-                      className="formj-check-input d-flex justify-content-start"
+                      className="form-check-input input-group-prepend ml-5"
                       key={option}
                     />
                     {option}
