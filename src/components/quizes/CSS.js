@@ -8,8 +8,31 @@ class CSS extends Component {
     userAnswer: null,
     currentQuestion: 0,
     options: []
+
   };
+
+  shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
+
   loadQuiz = () => {
+    this.shuffle(cssQuizQuestions)
     const { currentQuestion } = this.state;
     this.setState(() => {
       return {
@@ -45,7 +68,7 @@ class CSS extends Component {
   render() {
     const { questions, options } = this.state;
     return (
-      <div>
+      <React.Fragment>
         <Card className="text-center form-group mx-auto mt-5 col-6">
           <Card.Header>
             <h3>CSS Quiz</h3>
@@ -56,7 +79,7 @@ class CSS extends Component {
             </Card.Text>
             <form>
               <div className="d-flex flex-column">
-                {options.map(option => (
+                {this.shuffle(options.map(option => (
                   <label>
                     <input
                       type="radio"
@@ -67,14 +90,14 @@ class CSS extends Component {
                     />
                     {option}
                   </label>
-                ))}
+                )))}
               </div>
             </form>
             <button onClick={this.nextQuestion}>NEXT</button>
           </Card.Body>
         </Card>
         ;
-      </div>
+      </React.Fragment>
     );
   }
 }

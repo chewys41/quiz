@@ -1,13 +1,13 @@
 export const javascriptQuizQuestions = [
   {
     id: 1,
-    question: "What year was javaScript created?",
+    title: "What year was javaScript created?",
     answers: ["1995", "1986", "1996", "1991"],
     correctAns: "1995"
   },
   {
     id: 2,
-    question: "Strings are values made up of text and can contain...",
+    title: "Strings are values made up of text and can contain...",
     answers: [
       "All of the above",
       "symbols and punctuation",
@@ -18,7 +18,7 @@ export const javascriptQuizQuestions = [
   },
   {
     id: 3,
-    question: "How would you write 'Hello World' with alert?",
+    title: "How would you write 'Hello World' with alert?",
     answers: [
       "alert('Hello World')",
       "alertBox('Hello World')",
@@ -29,7 +29,7 @@ export const javascriptQuizQuestions = [
   },
   {
     id: 4,
-    question: "Which is the correct way to declare an array in Javascript?",
+    title: "Which is the correct way to declare an array in Javascript?",
     answers: [
       "var names = ['matt', 'mark', 'mike",
       "var names = array:['matt', 'mark', 'mike']",
@@ -40,7 +40,7 @@ export const javascriptQuizQuestions = [
   },
   {
     id: 5,
-    question:
+    title:
       "How would you declare the variable favoriteCar with a value of 'Mustang'",
     answers: [
       "var favoriteCar = 'Mustang'",
@@ -52,13 +52,13 @@ export const javascriptQuizQuestions = [
   },
   {
     id: 6,
-    question: "How would you call the function myCar?",
+    title: "How would you call the function myCar?",
     answers: ["myCar()", "callFunction myCar()", "myCar=>", "call()myCar"],
     correctAns: "myCar()"
   },
   {
     id: 7,
-    question:
+    title:
       "Which of the following function of String object returns the capitalized string while respecting the current locale?",
     answers: [
       "toLocaleUpperCase()",
@@ -70,21 +70,21 @@ export const javascriptQuizQuestions = [
   },
   {
     id: 8,
-    question:
+    title:
       "Which of the following methods removes the last element from an array and returns that element?",
     answers: ["pop()", "last()", "get()", "slice()"],
     correctAns: "pop()"
   },
   {
     id: 9,
-    question:
+    title:
       "What is the function of Array object that runs through each element of the array?",
     answers: ["forEach()", "concat()", "filter()", "every()"],
     correctAns: "forEach()"
   },
   {
     id: 10,
-    question:
+    title:
       "Select a function of Array object which returns a new array comprised of the current array /or its value(s)?",
     answers: ["concat()", "some()", "pop()", "push()"],
     correctAns: "concat()"

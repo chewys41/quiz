@@ -1,95 +1,103 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { javascriptQuizQuestions } from "../../questions/AllQuestions";
+import { javascriptQuizQuestions } from "../../questions/Questions";
 
-class JavaScript extends React.Component {
-  constructor(props) {
-    super(props);
+class JavaScript extends Component {
+  state = {
+    userAnswer: null,
+    currentQuestion: 0,
+    options: []
+  };
 
-    this.state = {
-      selectedOption: "option1",
-      currentQuestion: 0,
-      options: []
-    };
+
+
+  shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
   }
 
-  // shuffleQuestions = array => {
-  //   let i = array.length - 1;
-  //   let shiftedQuestion = array;
-  //   for (; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     const temp = array[i];
-  //     array[i] = array[j];
-  //     array[j] = temp;
-  //     shiftedQuestion.shift(j, 0);
-  //   }
-  //   return shiftedQuestion.title;
-  // };
-
-  shuffleQuestions = array => {
-    let newPos, temp, randomQuestion;
-    for (let i = array.length - 1; i > 0; i--) {
-      newPos = Math.floor(Math.random() * (i + 1));
-      temp = array[i];
-      array[i] = array[newPos];
-      array[newPos] = temp;
-    }
-    return array.shift().title;
-  };
-
-  loadAnswers = () => {};
-  handleOptionChange = changeEvent => {
-    this.setState({
-      selectedOption: changeEvent.target.value
+  loadQuiz = () => {
+    this.shuffle(javascriptQuizQuestions)
+    const { currentQuestion } = this.state;
+    this.setState(() => {
+      return {
+        questions: javascriptQuizQuestions[currentQuestion].title,
+        options: javascriptQuizQuestions[currentQuestion].answers,
+        answers: javascriptQuizQuestions[currentQuestion].correcctAns
+      };
     });
   };
-
-  handleFormSubmit = formSubmitEvent => {
-    formSubmitEvent.preventDefault();
-
-    console.log("You have submitted:", this.state.selectedOption);
+  componentDidMount() {
+    this.loadQuiz();
+  }
+  nextQuestion = () => {
+    this.setState({
+      currentQuestion: this.state.currentQuestion + 1
+    });
+    console.log(this.state.currentQuestion);
   };
-  render() {
-    const randomQuestion = this.shuffleQuestions(javascriptQuizQuestions);
 
-    // console.log(this.shuffleQuestions(javascriptQuizQuestions));
+  componentDidUpdate(prevProps, prevState) {
+    const { currentQuestion } = this.state;
+    if (this.state.currentQuestion !== prevState.currentQuestion) {
+      this.setState(() => {
+        return {
+          questions: javascriptQuizQuestions[currentQuestion].title,
+          options: javascriptQuizQuestions[currentQuestion].answers,
+          answers: javascriptQuizQuestions[currentQuestion].correcctAns
+        };
+      });
+    }
+  }
+
+  render() {
+    const { questions, options } = this.state
     return (
-      <div>
-        <Card className="text-center container mx-auto mt-5 col-6">
-          <Card.Header>javaScript Quiz</Card.Header>
-          <Card.Body>
-            <Card.Text>{randomQuestion}</Card.Text>
-            <form onSubmit={this.handleFormSubmit}>
-              <div className="quiz-formj">
-                <label>
-                  <input
-                    type="radio"
-                    name="1994"
-                    value="option1"
-                    checked={this.state.selectedOption === "option1"}
-                    onChange={this.handleOptionChange}
-                    className="formj-check-input"
-                  />
-                  1234
-                </label>
+      <React.Fragment>
+        <Card className="text-center form-group mx-auto mt-5 col-6">
+          <Card.Header>
+            <h3>JavaScript Quiz</h3>
+          </Card.Header>
+          <Card.Body className="form-group">
+            <Card.Text>
+              <h5>{questions}</h5>
+            </Card.Text>
+            <form>
+              <div className="d-flex flex-column">
+                {this.shuffle(options.map(option => (
+                  <label>
+                    <input
+                      type="radio"
+                      name="question"
+                      value={option}
+                      className="form-check-input input-group-prepend ml-5"
+                      key={option}
+                    />
+                    {option}
+                  </label>
+                )))}
               </div>
             </form>
-            <Button
-              className="mr-3"
-              onClick={this.handleFormSubmit}
-              variant="primary"
-            >
-              BACK
-            </Button>
-
-            <Button onClick={this.handleOptionChange} variant="primary">
-              NEXT
-            </Button>
+            <button onClick={this.nextQuestion}>NEXT</button>
           </Card.Body>
         </Card>
         ;
-      </div>
+      </React.Fragment>
     );
   }
 }

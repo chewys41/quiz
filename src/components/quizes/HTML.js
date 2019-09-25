@@ -3,15 +3,33 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { htmlQuizQuestions } from "../../questions/Questions";
 class HTML extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userAnswer: null,
-      currentQuestion: 0,
-      options: []
-    };
+  state = {
+    userAnswer: null,
+    currentQuestion: 0,
+    options: []
+  };
+  shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
   }
+
+
   loadQuiz = () => {
+    this.shuffle(htmlQuizQuestions)
     const { currentQuestion } = this.state;
     this.setState(() => {
       return {
@@ -31,7 +49,6 @@ class HTML extends Component {
     });
     console.log(this.state.currentQuestion);
   };
-
   componentDidUpdate(prevProps, prevState) {
     const { currentQuestion } = this.state;
     if (this.state.currentQuestion !== prevState.currentQuestion) {
@@ -59,7 +76,7 @@ class HTML extends Component {
             </Card.Text>
             <form>
               <div className="d-flex flex-column">
-                {options.map(option => (
+                {this.shuffle(options.map(option => (
                   <label>
                     <input
                       type="radio"
@@ -70,7 +87,7 @@ class HTML extends Component {
                     />
                     {option}
                   </label>
-                ))}
+                )))}
               </div>
             </form>
             <button onClick={this.nextQuestion}>NEXT</button>
